@@ -1,6 +1,11 @@
 import sys
 import socket
-from urllib.parse import urlparse
+
+#library for import function from jupyther file
+import import_ipynb
+
+#import .ipbn file with url parser
+import url_parser
 
 def main():
     url = sys.argv[1]
@@ -22,9 +27,9 @@ def get(dest_url):
 
 def make_get_request(dest_url, encodding):
     #prepare the request
-    url_parts = urlparse(dest_url)
-    netloc = url_parts.netloc
-    http_request = "GET {} HTTP/1.1\r\nHost: {}\r\n\r\n".format(url_parts.path, url_parts.netloc)
+    url_parts = url_parser.urlparser1(dest_url)
+    netloc = url_parts["netloc"]
+    http_request = "GET {path} HTTP/1.1\r\nHost: {netloc}\r\n\r\n".format(**url_parts)
     #preapare the socket
     connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     connection.connect((netloc, 80))
